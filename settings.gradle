@@ -1,0 +1,2 @@
+rootProject.name='gwclient'
+include ':app'
