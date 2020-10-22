@@ -19,7 +19,7 @@ public class StatusFactory
 
     private void initialize()
     {
-
+        statusMap.put(1, new Status1(1));
     }
 
     public AbstractStatus getStatus(Integer statusNumber)
