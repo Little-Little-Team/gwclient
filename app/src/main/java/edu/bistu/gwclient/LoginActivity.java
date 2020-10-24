@@ -53,7 +53,7 @@ public class LoginActivity extends CustomActivity
     {
         if(uilock)
         {
-            Log.e(getClass().getName(), "ui is locked");
+            Log.e(getClass().getName(), "loginButtonClicked but ui is locked");
             return;
         }
 
@@ -63,6 +63,7 @@ public class LoginActivity extends CustomActivity
             return;
         }
 
+        Log.d(getClass().getName(), "loginButtonClicked(" + username + ", " + pw + ")");
         lockUI();
     }
 

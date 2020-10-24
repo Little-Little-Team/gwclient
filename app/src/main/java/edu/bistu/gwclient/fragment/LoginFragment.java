@@ -65,6 +65,7 @@ public class LoginFragment extends Fragment
     public void setHintContent(String content)
     {
         textView_hint.setText(content);
+        textView_hint.setVisibility(View.VISIBLE);
     }
 
 }
