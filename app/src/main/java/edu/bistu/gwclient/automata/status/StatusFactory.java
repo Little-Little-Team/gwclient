@@ -20,6 +20,9 @@ public class StatusFactory
     private void initialize()
     {
         statusMap.put(1, new Status1(1));
+        statusMap.put(2, new Status2(2));
+        statusMap.put(3, new Status3(3));
+        statusMap.put(4, new Status4(4));
     }
 
     public AbstractStatus getStatus(Integer statusNumber)

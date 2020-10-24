@@ -84,4 +84,12 @@ public class Automata implements Runnable
 
         Log.d(getClass().getName(), "自动机结束");
     }
+
+    public void receiveEvent(Event event)
+    {
+        if(event != null)
+            eventQueue.add(event);
+        else
+            Log.e(getClass().getName(), "receive a null event");
+    }
 }

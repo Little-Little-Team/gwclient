@@ -12,6 +12,7 @@ public class Status1 extends AbstractStatus
     protected Status1(Integer statusNumber)
     {
         super(statusNumber);
+        supportedNextStatus.put(1, 2);
     }
 
     @Override
