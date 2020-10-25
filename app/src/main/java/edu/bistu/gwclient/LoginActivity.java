@@ -52,6 +52,7 @@ public class LoginActivity extends CustomActivity
     @Override
     protected void setUI()
     {
+        setContentView(R.layout.activity_login);
         toLogin();
         uilock = false;
     }
@@ -75,10 +76,11 @@ public class LoginActivity extends CustomActivity
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState)
+    protected void onDestroy()
     {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login);
+        if(progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+        super.onDestroy();
     }
 
     public void onLoginButtonClicked(String username, String pw)
