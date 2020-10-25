@@ -56,7 +56,8 @@ public class MainActivity extends CustomActivity
                         user = (User) arr[2];
                     if(textView == null || imageView == null || user == null)
                         Log.e(getClass().getName(), "three components transfer incomplete");
-                    textView.setText(user.getUsername());
+                    if(user.getUsername() != null)
+                        textView.setText(user.getUsername());
                     if(user.getAvatar() != null)
                         imageView.setImageBitmap(
                                 BitmapFactory.decodeByteArray(user.getAvatar(), 0, user.getAvatar().length));
