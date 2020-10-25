@@ -59,7 +59,7 @@ public class LoginActivity extends CustomActivity
     @Override
     protected void setHandler()
     {
-
+        handler = new Handler();
     }
 
     @Override

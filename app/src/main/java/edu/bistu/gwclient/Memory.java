@@ -13,7 +13,7 @@ public class Memory
     public static volatile Thread networkServiceThread;
     public static volatile NetworkService networkService;
 
-    public final static String serverIP = "10.16.55.116";
+    public final static String serverIP = "192.168.2.233";
 
     public final static String serverApiPort = "8080";
     public final static int serverSocketPort = 4966;
