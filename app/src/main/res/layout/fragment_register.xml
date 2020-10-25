@@ -17,7 +17,7 @@
         android:textSize="24sp" />
 
     <EditText
-        android:id="@+id/editText_id"
+        android:id="@+id/editText_username"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
@@ -63,7 +63,7 @@
         android:visibility="invisible" />
 
     <Button
-        android:id="@+id/button_login"
+        android:id="@+id/button_login_or_register"
         android:layout_width="273dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -73,7 +73,7 @@
         android:textSize="18sp" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/textView_toLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
