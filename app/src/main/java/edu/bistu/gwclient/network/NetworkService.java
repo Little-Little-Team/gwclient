@@ -23,6 +23,8 @@ public class NetworkService implements Runnable
     {
         Log.d(getClass().getName(), "network service start");
 
+        messageQueue = new LinkedBlockingQueue<>();
+
         try
         {
             SocketChannel socketChannel = SocketChannel.open();
@@ -43,6 +45,10 @@ public class NetworkService implements Runnable
 
                 if(message.getId() != null && message.getId() == Long.MIN_VALUE)
                     break;
+
+                message.toByteBuffer(byteBuffer);
+                int length = socketChannel.write(byteBuffer);
+                Log.d(getClass().getName(), "send a message, length: " + length);
             }
 
             messageReceiver.shutdown();

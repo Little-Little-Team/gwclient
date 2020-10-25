@@ -87,26 +87,10 @@ public class ClientMessage
         return message;
     }
 
-    public ByteBuffer toByteBuffer()
+    public void toByteBuffer(ByteBuffer buffer)
     {
-        // 计算需要的buffer的大小
-        int size = 8 + 8 + 4 + 4 + 4;
-        if (this.n > 0)
-        {
-            size += 4;
-
-            if (this.dataType == 1)
-                size += 4 * this.arrInt.length;
-            else if (this.dataType == 2)
-                size += 8 * this.arrLong.length;
-            else if (this.dataType == 3)
-                for (String s : this.arrString)
-                {
-                    size += 4 + s.length() * 2;
-                }
-        }
-
-        ByteBuffer buffer = ByteBuffer.allocateDirect(size);
+        buffer.limit(buffer.capacity());
+        buffer.position(0);
 
         // 向buffer中填充内容
         buffer.putLong(this.id);
@@ -140,9 +124,8 @@ public class ClientMessage
             }
         }
 
+        buffer.limit(buffer.position());
         buffer.position(0);
-
-        return buffer;
     }
 
     public Long getId()
@@ -238,7 +221,8 @@ public class ClientMessage
     public static ClientMessage loginRequest(String username, String pw)
     {
         ClientMessage message = new ClientMessage();
-        message.setId(null);
+        message.setId(0L);
+        message.setTime(System.currentTimeMillis());
         message.setServiceNumber(1);
         message.setMsgType(1);
         message.setN(2);
@@ -251,11 +235,6 @@ public class ClientMessage
     {
         ClientMessage message = new ClientMessage();
         message.setId(Long.MIN_VALUE);
-        message.setServiceNumber(null);
-        message.setMsgType(null);
-        message.setN(null);
-        message.setDataType(null);
-        message.setArrString(null);
         return message;
     }
 }
