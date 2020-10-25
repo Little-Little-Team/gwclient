@@ -9,6 +9,8 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 
+import edu.bistu.gwclient.Memory;
+import edu.bistu.gwclient.automata.event.Event;
 import edu.bistu.gwclient.model.ServerMessage;
 
 public class MessageReceiver implements Runnable
@@ -61,11 +63,15 @@ public class MessageReceiver implements Runnable
                     iterator.remove();
                 }
             }
+
+            selector.close();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
+
+        Log.d(getClass().getName(), "message receiver end");
     }
 
     private void getMessageFromBuffer(ByteBuffer byteBuffer)
@@ -82,7 +88,22 @@ public class MessageReceiver implements Runnable
 
     private void messageToEvent(ServerMessage message)
     {
+        if(message == null)
+        {
+            Log.e(getClass().getName(), "messageToEvent(): message is null");
+            return;
+        }
 
+        int type = message.getMsgType();
+        if(type == 1)
+        {
+            if(message.getDataType() == 2)
+                Memory.automata.receiveEvent(
+                        new Event(3, message.getArrLong()[0], System.currentTimeMillis()));
+            else
+                Memory.automata.receiveEvent(
+                        new Event(4, message.getArrInt()[0], System.currentTimeMillis()));
+        }
     }
 
     public void shutdown()

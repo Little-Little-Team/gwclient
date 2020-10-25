@@ -1,6 +1,11 @@
 package edu.bistu.gwclient.automata.status;
 
+import android.os.Message;
+
+import edu.bistu.gwclient.LoginActivity;
+import edu.bistu.gwclient.Memory;
 import edu.bistu.gwclient.automata.event.Event;
+import edu.bistu.gwclient.model.ClientMessage;
 
 public class Status3 extends AbstractStatus
 {
@@ -14,6 +19,11 @@ public class Status3 extends AbstractStatus
     @Override
     public void initialize(Event triggeredEvent)
     {
+        Message message = new Message();
+        message.what = 1;
+        Memory.currentActivity.receiveMessage(message);
 
+        Memory.networkService.sendMessage(
+                ClientMessage.loginRequest(LoginActivity.inputUserName, LoginActivity.inputPw));
     }
 }

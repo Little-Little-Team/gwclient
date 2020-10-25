@@ -17,4 +17,6 @@ public class Memory
 
     public final static String serverApiPort = "8080";
     public final static int serverSocketPort = 4966;
+
+    public static volatile Long id = null;
 }

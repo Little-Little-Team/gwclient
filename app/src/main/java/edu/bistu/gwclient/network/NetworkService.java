@@ -41,16 +41,27 @@ public class NetworkService implements Runnable
             {
                 ClientMessage message = messageQueue.take();
 
-                if(message.getId() == -1)
+                if(message.getId() != null && message.getId() == Long.MIN_VALUE)
                     break;
             }
+
+            messageReceiver.shutdown();
+            receiverThread.join();
+            socketChannel.close();
         }
         catch (Exception e)
         {
             e.printStackTrace();
         }
 
-
         Log.d(getClass().getName(), "network service end");
+    }
+
+    public void sendMessage(ClientMessage message)
+    {
+        if(message != null)
+            messageQueue.add(message);
+        else
+            Log.e(getClass().getName(), "network service try to send a null message");
     }
 }

@@ -234,4 +234,28 @@ public class ClientMessage
     {
         this.arrString = arrString;
     }
+
+    public static ClientMessage loginRequest(String username, String pw)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(null);
+        message.setServiceNumber(1);
+        message.setMsgType(1);
+        message.setN(2);
+        message.setDataType(3);
+        message.setArrString(new String[]{username, pw});
+        return message;
+    }
+
+    public static ClientMessage networkServiceShutdownSignal()
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Long.MIN_VALUE);
+        message.setServiceNumber(null);
+        message.setMsgType(null);
+        message.setN(null);
+        message.setDataType(null);
+        message.setArrString(null);
+        return message;
+    }
 }

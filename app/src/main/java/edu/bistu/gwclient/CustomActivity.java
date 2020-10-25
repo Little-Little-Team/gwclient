@@ -37,7 +37,8 @@ public abstract class CustomActivity extends AppCompatActivity
                 }
                 else if(arg == 2)
                 {
-
+                    /* MainActivity */
+                    intent = new Intent(CustomActivity.this, MainActivity.class);
                 }
                 else if(arg == 3)
                 {

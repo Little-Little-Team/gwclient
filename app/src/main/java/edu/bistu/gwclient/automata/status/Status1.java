@@ -1,10 +1,12 @@
 package edu.bistu.gwclient.automata.status;
 
 import android.os.Message;
+import android.util.Log;
 
 import edu.bistu.gwclient.LoginActivity;
 import edu.bistu.gwclient.Memory;
 import edu.bistu.gwclient.automata.event.Event;
+import edu.bistu.gwclient.model.ClientMessage;
 
 public class Status1 extends AbstractStatus
 {
@@ -23,6 +25,30 @@ public class Status1 extends AbstractStatus
             Message message = new Message();
             message.what = 0;
             message.arg1 = 1;
+            Memory.currentActivity.receiveMessage(message);
+        }
+
+        if(triggeredEvent != null && triggeredEvent.getEventNumber() == 4)
+        {
+            Message message = new Message();
+            message.what = 2;
+            Object attachment = triggeredEvent.getAttachment();
+            if(attachment instanceof Integer)
+                message.arg1 = (Integer) attachment;
+            else
+                Log.e(getClass().getName(), "cannot transfer error code from attachment");
+
+            /* 关闭网络服务 */
+            Memory.networkService.sendMessage(ClientMessage.networkServiceShutdownSignal());
+            try
+            {
+                Memory.networkServiceThread.join();
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
             Memory.currentActivity.receiveMessage(message);
         }
     }
