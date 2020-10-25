@@ -84,6 +84,9 @@ public class MessageReceiver implements Runnable
             ServerMessage message = ServerMessage.loadFromByteBuffer(byteBuffer);
             messageToEvent(message);
         }
+
+        byteBuffer.limit(byteBuffer.capacity());
+        byteBuffer.position(0);
     }
 
     private void messageToEvent(ServerMessage message)
@@ -96,14 +99,11 @@ public class MessageReceiver implements Runnable
 
         int type = message.getMsgType();
         if(type == 1)
-        {
-            if(message.getDataType() == 2)
-                Memory.automata.receiveEvent(
-                        new Event(3, message.getArrLong()[0], System.currentTimeMillis()));
-            else
-                Memory.automata.receiveEvent(
-                        new Event(4, message.getArrInt()[0], System.currentTimeMillis()));
-        }
+            Memory.automata.receiveEvent(
+                    new Event(3, message.getArrLong()[0], System.currentTimeMillis()));
+        else if(type == 2)
+            Memory.automata.receiveEvent(
+                    new Event(4, message.getArrInt()[0], System.currentTimeMillis()));
     }
 
     public void shutdown()

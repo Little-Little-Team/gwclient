@@ -43,7 +43,7 @@ public class LoginActivity extends CustomActivity
             {
                 /* 登录失败 */
                 closeProgressDialog();
-                loginFragment.setHintContent("登陆失败，错误代码：" + msg.arg1);
+                loginFragment.setHintContent("登录失败，错误代码：" + msg.arg1);
             }
         }
     }
