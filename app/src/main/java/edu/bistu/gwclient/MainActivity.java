@@ -1,13 +1,15 @@
 package edu.bistu.gwclient;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -17,6 +19,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import edu.bistu.gwclient.automata.event.Event;
 import edu.bistu.gwclient.fragment.HallFragment;
 import edu.bistu.gwclient.fragment.RoomFragment;
 import edu.bistu.gwclient.fragment.RoomListFragment;
@@ -34,6 +37,8 @@ public class MainActivity extends CustomActivity
     private HallFragment hallFragment;
     private RoomListFragment roomListFragment;
     private RoomFragment roomFragment;
+
+    private ProgressDialog progressDialog;
 
     private boolean uilock;
 
@@ -77,6 +82,31 @@ public class MainActivity extends CustomActivity
                 else
                     Log.e(getClass().getName(), "user info transfer failed");
             }
+            else if(what == 2)
+            {
+                /* 快速加入 */
+                showProgressDialog("正在寻找房间");
+            }
+            else if(what == 4)
+            {
+                /* 创建房间 */
+                showProgressDialog("正在创建房间");
+            }
+            else if(what == 5)
+            {
+                /* 快速加入/创建房间服务器响应超时 */
+                closeProgressDialog();
+                Toast.makeText(MainActivity.this, "服务器响应超时", Toast.LENGTH_SHORT).show();
+            }
+            else if(what == 6)
+            {
+                /* 加入房间 */
+                closeProgressDialog();
+                if(msg.obj instanceof Long)
+                    toRoom((Long) msg.obj);
+                else
+                    Log.e(getClass().getName(), "room number transfer failed");
+            }
         }
     }
 
@@ -98,6 +128,8 @@ public class MainActivity extends CustomActivity
 
             }
         });
+
+        toHall();
     }
 
     @Override
@@ -132,6 +164,24 @@ public class MainActivity extends CustomActivity
         super.onDestroy();
     }
 
+    private void showProgressDialog(String msg)
+    {
+        if(progressDialog == null)
+        {
+            progressDialog = new ProgressDialog(this);
+            progressDialog.setCancelable(false);
+        }
+        progressDialog.setMessage(msg);
+        if(!progressDialog.isShowing())
+            progressDialog.show();
+    }
+
+    private void closeProgressDialog()
+    {
+        if(progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+    }
+
     private void toHall()
     {
         if(hallFragment == null)
@@ -146,11 +196,33 @@ public class MainActivity extends CustomActivity
         replaceFragment(roomListFragment);
     }
 
-    private void toRoom()
+    private void toRoom(Long roomID)
     {
         if(roomFragment == null)
-            roomFragment = new RoomFragment(this);
+            roomFragment = new RoomFragment(this, roomID);
+        roomFragment.setRoomID(roomID);
         replaceFragment(roomFragment);
+    }
+
+    private void onQuickJoinClicked()
+    {
+        if(uilock)
+        {
+            Log.e(getClass().getName(), "onQuickJoinClicked(): ui is locked");
+            return;
+        }
+        lockUI();
+        Memory.automata.receiveEvent(new Event(4, null, System.currentTimeMillis()));
+    }
+
+    private void onRoomListClicked()
+    {
+
+    }
+
+    private void onCreateRoomClicked()
+    {
+
     }
 
     /**

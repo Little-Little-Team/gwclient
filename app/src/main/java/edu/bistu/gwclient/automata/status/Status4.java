@@ -38,5 +38,13 @@ public class Status4 extends AbstractStatus
             else
                 Log.e(getClass().getName(), "cannot transfer user id from attachment");
         }
+        else if(triggeredEvent.getEventNumber() == 5)
+        {
+
+        }
+        else if(triggeredEvent.getEventNumber() == 8)
+        {
+
+        }
     }
 }

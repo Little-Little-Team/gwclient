@@ -23,6 +23,7 @@ public class StatusFactory
         statusMap.put(2, new Status2(2));
         statusMap.put(3, new Status3(3));
         statusMap.put(4, new Status4(4));
+        statusMap.put(5, new Status5(5));
     }
 
     public AbstractStatus getStatus(Integer statusNumber)

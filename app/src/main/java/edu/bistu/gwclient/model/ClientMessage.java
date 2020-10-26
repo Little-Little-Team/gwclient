@@ -3,6 +3,8 @@ package edu.bistu.gwclient.model;
 import java.nio.BufferUnderflowException;
 import java.nio.ByteBuffer;
 
+import edu.bistu.gwclient.Memory;
+
 /**
  * message from client
  */
@@ -228,6 +230,28 @@ public class ClientMessage
         message.setN(2);
         message.setDataType(3);
         message.setArrString(new String[]{username, pw});
+        return message;
+    }
+
+    public static ClientMessage quickJoinRequest()
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(2);
+        message.setMsgType(2);
+        message.setN(0);
+        return message;
+    }
+
+    public static ClientMessage createRoomRequest()
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(2);
+        message.setMsgType(4);
+        message.setN(0);
         return message;
     }
 

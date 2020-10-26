@@ -100,10 +100,13 @@ public class MessageReceiver implements Runnable
         int type = message.getMsgType();
         if(type == 1)
             Memory.automata.receiveEvent(
-                    new Event(3, message.getArrLong()[0], System.currentTimeMillis()));
+                    new Event(3, message.getArrLong()[0], message.getTime()));
         else if(type == 2)
             Memory.automata.receiveEvent(
-                    new Event(4, message.getArrInt()[0], System.currentTimeMillis()));
+                    new Event(4, message.getArrInt()[0], message.getTime()));
+        else if(type == 4)
+            Memory.automata.receiveEvent(
+                    new Event(6, message.getArrLong()[0], message.getTime()));
     }
 
     public void shutdown()

@@ -19,4 +19,6 @@ public class Memory
     public final static int serverSocketPort = 4966;
 
     public static volatile Long id = null;
+
+    public final static long progressDialogTimeout = 3000;
 }

@@ -26,10 +26,13 @@ public class RoomFragment extends Fragment
 
     private Button button_startGame;
 
-    public RoomFragment(MainActivity master)
+    private Long roomID;
+
+    public RoomFragment(MainActivity master, Long roomID)
     {
         super();
         this.master = master;
+        this.roomID = roomID;
     }
 
     @Nullable
@@ -44,5 +47,10 @@ public class RoomFragment extends Fragment
         button_startGame = view.findViewById(R.id.button_startGame);
 
         return view;
+    }
+
+    public void setRoomID(Long roomID)
+    {
+        this.roomID = roomID;
     }
 }
