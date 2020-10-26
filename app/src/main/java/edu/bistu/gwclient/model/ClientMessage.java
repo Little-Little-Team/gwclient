@@ -261,4 +261,17 @@ public class ClientMessage
         message.setId(Long.MIN_VALUE);
         return message;
     }
+
+    public static ClientMessage roomInfoRequest(Integer roomID)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(2);
+        message.setMsgType(1);
+        message.setN(1);
+        message.setDataType(1);
+        message.setArrInt(new Integer[]{roomID});
+        return message;
+    }
 }

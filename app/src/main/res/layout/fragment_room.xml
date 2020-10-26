@@ -53,6 +53,6 @@
         android:layout_marginBottom="10dp"
         android:text="开始游戏"
         android:textSize="24sp"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
 </LinearLayout>

@@ -103,9 +103,17 @@ public class MainActivity extends CustomActivity
                 /* 加入房间 */
                 closeProgressDialog();
                 if(msg.obj instanceof Long)
-                    toRoom((Long) msg.obj);
+                    toRoom(msg.arg1);
                 else
                     Log.e(getClass().getName(), "room number transfer failed");
+            }
+            else if(what == 7)
+            {
+                /* 更新房间内玩家信息 */
+                if(msg.obj instanceof Long[])
+                    roomFragment.updateData((Long[]) msg.obj);
+                else
+                    Log.e(getClass().getName(), "players info array transfer failed");
             }
         }
     }
@@ -196,7 +204,7 @@ public class MainActivity extends CustomActivity
         replaceFragment(roomListFragment);
     }
 
-    private void toRoom(Long roomID)
+    private void toRoom(Integer roomID)
     {
         if(roomFragment == null)
             roomFragment = new RoomFragment(this, roomID);
@@ -229,7 +237,7 @@ public class MainActivity extends CustomActivity
      * 异步获取指定用户的信息（包括用户名、头像）
      * @param id 用户ID
      */
-    private void setUserPropertyInBackground(Long id, TextView textView, ImageView imageView)
+    public void setUserPropertyInBackground(Long id, TextView textView, ImageView imageView)
     {
         if(id == null)
         {

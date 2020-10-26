@@ -21,4 +21,6 @@ public class Memory
     public static volatile Long id = null;
 
     public final static long progressDialogTimeout = 3000;
+
+    public final static int maxRoomSize = 8;
 }

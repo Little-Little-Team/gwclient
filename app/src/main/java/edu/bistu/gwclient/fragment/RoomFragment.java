@@ -5,14 +5,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.bistu.gwclient.MainActivity;
 import edu.bistu.gwclient.R;
+import edu.bistu.gwclient.adapter.PlayerAdapter;
 
 public class RoomFragment extends Fragment
 {
@@ -26,9 +29,11 @@ public class RoomFragment extends Fragment
 
     private Button button_startGame;
 
-    private Long roomID;
+    private Integer roomID;
 
-    public RoomFragment(MainActivity master, Long roomID)
+    private PlayerAdapter adapter;
+
+    public RoomFragment(MainActivity master, Integer roomID)
     {
         super();
         this.master = master;
@@ -46,11 +51,53 @@ public class RoomFragment extends Fragment
         button_prepare = view.findViewById(R.id.button_prepare);
         button_startGame = view.findViewById(R.id.button_startGame);
 
+        button_returnHall.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+            }
+        });
+
+        button_prepare.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+
+            }
+        });
+
+        button_startGame.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View view)
+            {
+                if(adapter.isRoomOwner())
+                {
+
+                }
+                else
+                    Toast.makeText(RoomFragment.this.getContext(), "你不是房主，不能开始游戏", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        adapter = new PlayerAdapter(master);
+        recyclerView_playerList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        recyclerView_playerList.setAdapter(adapter);
+
         return view;
     }
 
-    public void setRoomID(Long roomID)
+    public void setRoomID(Integer roomID)
     {
         this.roomID = roomID;
+    }
+
+    public void updateData(Long[] arr)
+    {
+        adapter.updateData(arr);
+        adapter.notifyDataSetChanged();
     }
 }
