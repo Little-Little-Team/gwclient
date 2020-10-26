@@ -18,7 +18,7 @@
         android:background="@color/colorPrimaryDark" />
 
     <Button
-        android:id="@+id/button_createNewRoom"
+        android:id="@+id/button_newRoom"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="创建房间"
@@ -31,7 +31,7 @@
         android:background="@color/colorPrimaryDark" />
 
     <Button
-        android:id="@+id/button_searchRoom"
+        android:id="@+id/button_roomList"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:text="房间列表"

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="5dp"
+    android:layout_marginEnd="5dp"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textView_isReady"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="未准备"
+        android:textSize="18sp" />
+
+    <ImageView
+        android:id="@+id/imageView_avatar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        app:srcCompat="@drawable/boy_icon" />
+
+    <TextView
+        android:id="@+id/textView_username"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:text="用户名"
+        android:textSize="18sp" />
+</LinearLayout>
