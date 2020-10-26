@@ -7,6 +7,7 @@ import edu.bistu.gwclient.LoginActivity;
 import edu.bistu.gwclient.MainActivity;
 import edu.bistu.gwclient.Memory;
 import edu.bistu.gwclient.automata.event.Event;
+import edu.bistu.gwclient.model.ClientMessage;
 
 public class Status4 extends AbstractStatus
 {
@@ -45,6 +46,18 @@ public class Status4 extends AbstractStatus
         else if(triggeredEvent.getEventNumber() == 8)
         {
 
+        }
+        else if(triggeredEvent.getEventNumber() == 14)
+        {
+            Message message = new Message();
+            message.what = 8;
+            Memory.currentActivity.receiveMessage(message);
+
+            if(triggeredEvent.getAttachment() instanceof Integer)
+                Memory.networkService.sendMessage(
+                        ClientMessage.exitRoom((Integer) triggeredEvent.getAttachment()));
+            else
+                Log.e(getClass().getName(), "exit room: cannot transfer room id");
         }
     }
 }

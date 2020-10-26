@@ -14,8 +14,10 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import edu.bistu.gwclient.MainActivity;
+import edu.bistu.gwclient.Memory;
 import edu.bistu.gwclient.R;
 import edu.bistu.gwclient.adapter.PlayerAdapter;
+import edu.bistu.gwclient.automata.event.Event;
 
 public class RoomFragment extends Fragment
 {
@@ -56,7 +58,7 @@ public class RoomFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-
+                Memory.automata.receiveEvent(new Event(14, roomID, System.currentTimeMillis()));
             }
         });
 
@@ -65,7 +67,7 @@ public class RoomFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-
+                Memory.automata.receiveEvent(new Event(16, roomID, System.currentTimeMillis()));
             }
         });
 
@@ -76,7 +78,7 @@ public class RoomFragment extends Fragment
             {
                 if(adapter.isRoomOwner())
                 {
-
+                    Memory.automata.receiveEvent(new Event(17, roomID, System.currentTimeMillis()));
                 }
                 else
                     Toast.makeText(RoomFragment.this.getContext(), "你不是房主，不能开始游戏", Toast.LENGTH_SHORT).show();

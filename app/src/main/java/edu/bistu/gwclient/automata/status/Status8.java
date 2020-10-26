@@ -14,6 +14,10 @@ public class Status8 extends AbstractStatus
     {
         super(statusNumber);
         supportedNextStatus.put(14, 4);
+        supportedNextStatus.put(15, 8);
+        supportedNextStatus.put(16, 8);
+        supportedNextStatus.put(17, 8);
+        supportedNextStatus.put(18, 9);
     }
 
     @Override
@@ -37,6 +41,22 @@ public class Status8 extends AbstractStatus
             message.what = 7;
             message.obj = triggeredEvent.getAttachment();
             Memory.currentActivity.receiveMessage(message);
+        }
+        else if(triggeredEvent.getEventNumber() == 16)
+        {
+            if(triggeredEvent.getAttachment() instanceof Integer)
+                Memory.networkService.sendMessage(
+                        ClientMessage.switchPrepareStatus((Integer)triggeredEvent.getAttachment()));
+            else
+                Log.e(getClass().getName(), "switch prepare status: transfer room id failed");
+        }
+        else if(triggeredEvent.getEventNumber() == 17)
+        {
+            if(triggeredEvent.getAttachment() instanceof Integer)
+                Memory.networkService.sendMessage(
+                        ClientMessage.startGameRequest((Integer)triggeredEvent.getAttachment()));
+            else
+                Log.e(getClass().getName(), "start game request: transfer room id failed");
         }
     }
 }

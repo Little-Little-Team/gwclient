@@ -42,7 +42,9 @@ public abstract class CustomActivity extends AppCompatActivity
                 }
                 else if(arg == 3)
                 {
-
+                    /* GameActivity */
+                    intent = new Intent(CustomActivity.this, GameActivity.class);
+                    intent.putExtra("gameID", msg.arg2);
                 }
                 else if(arg == 4)
                 {

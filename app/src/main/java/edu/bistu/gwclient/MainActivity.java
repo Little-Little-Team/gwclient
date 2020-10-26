@@ -2,7 +2,6 @@ package edu.bistu.gwclient;
 
 import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.util.Log;
@@ -72,7 +71,10 @@ public class MainActivity extends CustomActivity
                     if(arr[2] instanceof User)
                         user = (User) arr[2];
                     if(textView == null || imageView == null || user == null)
+                    {
                         Log.e(getClass().getName(), "three components transfer incomplete");
+                        return;
+                    }
                     if(user.getUsername() != null)
                         textView.setText(user.getUsername());
                     if(user.getAvatar() != null)
@@ -102,6 +104,7 @@ public class MainActivity extends CustomActivity
             {
                 /* 加入房间 */
                 closeProgressDialog();
+                unlockUI();
                 if(msg.obj instanceof Long)
                     toRoom(msg.arg1);
                 else
@@ -114,6 +117,11 @@ public class MainActivity extends CustomActivity
                     roomFragment.updateData((Long[]) msg.obj);
                 else
                     Log.e(getClass().getName(), "players info array transfer failed");
+            }
+            else if(what == 8)
+            {
+                /* 返回大厅 */
+                toHall();
             }
         }
     }
@@ -253,7 +261,7 @@ public class MainActivity extends CustomActivity
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.replace(R.id.recyclerView_chatList, fragment);
         fragmentTransaction.commit();
     }
 }

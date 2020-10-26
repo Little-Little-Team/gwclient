@@ -110,6 +110,18 @@ public class MessageReceiver implements Runnable
         else if(type == 4)
             Memory.automata.receiveEvent(
                     new Event(6, message.getArrInt()[0], message.getTime()));
+        else if(type == 9)
+            Memory.automata.receiveEvent(
+                    new Event(18, message.getArrInt()[0], message.getTime()));
+        else if(type == 10)
+            Memory.automata.receiveEvent(
+                    new Event(21, message.getArrLong(), message.getTime()));
+        else if(type == 11)
+            Memory.automata.receiveEvent(
+                    new Event(22, message.getArrString()[0], message.getTime()));
+        else if(type == 12)
+            Memory.automata.receiveEvent(
+                    new Event(23, message.getArrInt()[0], message.getTime()));
     }
 
     public void shutdown()

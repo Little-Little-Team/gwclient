@@ -274,4 +274,64 @@ public class ClientMessage
         message.setArrInt(new Integer[]{roomID});
         return message;
     }
+
+    public static ClientMessage switchPrepareStatus(Integer roomID)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(2);
+        message.setMsgType(9);
+        message.setN(1);
+        message.setArrInt(new Integer[]{roomID});
+        return message;
+    }
+
+    public static ClientMessage exitRoom(Integer roomID)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(2);
+        message.setMsgType(8);
+        message.setN(1);
+        message.setArrInt(new Integer[]{roomID});
+        return message;
+    }
+
+    public static ClientMessage startGameRequest(Integer roomID)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(2);
+        message.setMsgType(10);
+        message.setN(1);
+        message.setArrInt(new Integer[]{roomID});
+        return message;
+    }
+
+    public static ClientMessage gameReady(Integer gameID)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(3);
+        message.setMsgType(gameID);
+        message.setN(0);
+        return message;
+    }
+
+    public static ClientMessage newChat(Integer gameID, String str)
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(3);
+        message.setMsgType(gameID);
+        message.setN(1);
+        message.setDataType(3);
+        message.setArrString(new String[]{str});
+        return message;
+    }
 }

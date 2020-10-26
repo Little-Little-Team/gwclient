@@ -6,10 +6,8 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.app.ProgressDialog;
-import android.os.Bundle;
 import android.os.Message;
 import android.util.Log;
-import android.widget.ProgressBar;
 
 import edu.bistu.gwclient.automata.event.Event;
 import edu.bistu.gwclient.fragment.LoginFragment;
@@ -141,7 +139,7 @@ public class LoginActivity extends CustomActivity
     {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.frameLayout, fragment);
+        fragmentTransaction.replace(R.id.recyclerView_chatList, fragment);
         fragmentTransaction.commit();
     }
 }
