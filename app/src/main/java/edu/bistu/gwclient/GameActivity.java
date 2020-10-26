@@ -63,7 +63,8 @@ public class GameActivity extends CustomActivity
             }
             else if(what == 2)
             {
-
+                /* 刷新聊天 */
+                updateChat((String) msg.obj);
             }
         }
     }

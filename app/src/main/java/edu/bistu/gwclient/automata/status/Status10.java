@@ -12,6 +12,10 @@ public class Status10 extends AbstractStatus
     protected Status10(Integer statusNumber)
     {
         super(statusNumber);
+        supportedNextStatus.put(20, 10);
+        supportedNextStatus.put(21, 10);
+        supportedNextStatus.put(22, 10);
+        supportedNextStatus.put(23, 11);
     }
 
     @Override
@@ -51,7 +55,14 @@ public class Status10 extends AbstractStatus
         }
         else if(triggeredEvent.getEventNumber() == 22)
         {
-
+            if(triggeredEvent.getAttachment() instanceof String)
+            {
+                Message message = new Message();
+                message.what = 2;
+                message.obj = triggeredEvent.getAttachment();
+            }
+            else
+                Log.e(getClass().getName(), "event number 22: string transfer failed");
         }
     }
 }
