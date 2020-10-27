@@ -8,6 +8,7 @@ import androidx.fragment.app.FragmentTransaction;
 import android.app.ProgressDialog;
 import android.os.Message;
 import android.util.Log;
+import android.widget.Toast;
 
 import edu.bistu.gwclient.automata.event.Event;
 import edu.bistu.gwclient.fragment.LoginFragment;
@@ -42,6 +43,29 @@ public class LoginActivity extends CustomActivity
                 /* 登录失败 */
                 closeProgressDialog();
                 loginFragment.setHintContent("登录失败，错误代码：" + msg.arg1);
+            }
+            else if(what == 3)
+            {
+                showProgressDialog("正在注册");
+            }
+            else if(what == 4)
+            {
+                closeProgressDialog();
+                String str;
+                if(msg.arg1 == 1)
+                {
+                    toLogin();
+                    str = "注册成功";
+                    Toast.makeText(LoginActivity.this, str, Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                else if(msg.arg1 == 2)
+                    str = "用户已存在";
+                else if(msg.arg1 == 3)
+                    str = "密码过于简单（长度小于4位）";
+                else
+                    str = "非法参数";
+                registerFragment.setHintContent(str);
             }
         }
     }

@@ -1,6 +1,10 @@
 package edu.bistu.gwclient;
 
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+
 import edu.bistu.gwclient.automata.Automata;
+import edu.bistu.gwclient.model.User;
 import edu.bistu.gwclient.network.NetworkService;
 
 public class Memory
@@ -23,4 +27,6 @@ public class Memory
     public final static long progressDialogTimeout = 3000;
 
     public final static int maxRoomSize = 8;
+
+    public final static Map<Long, User> userCache = new ConcurrentHashMap<>();
 }

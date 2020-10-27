@@ -2,6 +2,7 @@ package edu.bistu.gwclient;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -21,6 +22,8 @@ import java.io.IOException;
 
 import edu.bistu.gwclient.adapter.ChatAdapter;
 import edu.bistu.gwclient.automata.event.Event;
+import edu.bistu.gwclient.fragment.GameResultDialogFragment;
+import edu.bistu.gwclient.model.User;
 
 public class GameActivity extends CustomActivity
 {
@@ -39,6 +42,8 @@ public class GameActivity extends CustomActivity
     private MediaPlayer mediaPlayer;
 
     private MusicDurationUpdater updater;
+
+    private GameResultDialogFragment dialogFragment;
 
     private boolean isReady;
 
@@ -64,8 +69,29 @@ public class GameActivity extends CustomActivity
             else if(what == 2)
             {
                 /* 刷新聊天 */
-                updateChat((String) msg.obj);
+                String[] arr = (String[]) msg.obj;
+                Long userID = Long.parseLong(arr[0]);
+                User user = Memory.userCache.get(userID);
+                String str;
+                if(user != null)
+                    str = user.getUsername() + ": " + arr[1];
+                else
+                    str = "uid" + arr[0] + ": " + arr[1];
+                updateChat(str);
             }
+            else if(what == 3)
+            {
+                /* 显示结果 */
+                if(msg.obj instanceof Long[])
+                {
+                    dialogFragment = new GameResultDialogFragment(GameActivity.this, (Long[]) msg.obj);
+                    dialogFragment.show(getSupportFragmentManager(), "GameResult");
+                }
+                else
+                    Log.e(getClass().getName(), "game result transfer failed");
+            }
+            else if(what == 4)
+                finish();
         }
     }
 
@@ -187,6 +213,8 @@ public class GameActivity extends CustomActivity
     {
         mediaPlayer.stop();
         mediaPlayer.release();
+        if(dialogFragment != null)
+            dialogFragment.dismiss();
         super.onDestroy();
     }
 
@@ -224,5 +252,9 @@ public class GameActivity extends CustomActivity
         }
     }
 
+    public void onConfirmClicked()
+    {
+        Memory.automata.receiveEvent(new Event(24, null, System.currentTimeMillis()));
+    }
 
 }

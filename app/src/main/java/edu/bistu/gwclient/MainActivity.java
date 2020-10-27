@@ -220,7 +220,7 @@ public class MainActivity extends CustomActivity
         replaceFragment(roomFragment);
     }
 
-    private void onQuickJoinClicked()
+    public void onQuickJoinClicked()
     {
         if(uilock)
         {
@@ -231,14 +231,14 @@ public class MainActivity extends CustomActivity
         Memory.automata.receiveEvent(new Event(4, null, System.currentTimeMillis()));
     }
 
-    private void onRoomListClicked()
+    public void onRoomListClicked()
     {
 
     }
 
-    private void onCreateRoomClicked()
+    public void onCreateRoomClicked()
     {
-
+        Memory.automata.receiveEvent(new Event(7, null, System.currentTimeMillis()));
     }
 
     /**

@@ -118,10 +118,10 @@ public class MessageReceiver implements Runnable
                     new Event(21, message.getArrLong(), message.getTime()));
         else if(type == 11)
             Memory.automata.receiveEvent(
-                    new Event(22, message.getArrString()[0], message.getTime()));
+                    new Event(22, message.getArrString(), message.getTime()));
         else if(type == 12)
             Memory.automata.receiveEvent(
-                    new Event(23, message.getArrInt()[0], message.getTime()));
+                    new Event(23,  message.getArrLong(), message.getTime()));
     }
 
     public void shutdown()

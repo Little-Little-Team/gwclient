@@ -55,14 +55,14 @@ public class Status10 extends AbstractStatus
         }
         else if(triggeredEvent.getEventNumber() == 22)
         {
-            if(triggeredEvent.getAttachment() instanceof String)
+            if(triggeredEvent.getAttachment() instanceof String[])
             {
                 Message message = new Message();
                 message.what = 2;
                 message.obj = triggeredEvent.getAttachment();
             }
             else
-                Log.e(getClass().getName(), "event number 22: string transfer failed");
+                Log.e(getClass().getName(), "event number 22: string[] transfer failed");
         }
     }
 }

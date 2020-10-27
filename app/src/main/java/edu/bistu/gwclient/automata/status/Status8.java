@@ -1,6 +1,7 @@
 package edu.bistu.gwclient.automata.status;
 
 import android.os.Message;
+import android.telephony.mbms.MbmsErrors;
 import android.util.Log;
 
 import edu.bistu.gwclient.Memory;
@@ -57,6 +58,12 @@ public class Status8 extends AbstractStatus
                         ClientMessage.startGameRequest((Integer)triggeredEvent.getAttachment()));
             else
                 Log.e(getClass().getName(), "start game request: transfer room id failed");
+        }
+        else if(triggeredEvent.getEventNumber() == 24)
+        {
+            Message message = new Message();
+            message.what = 4;
+            Memory.currentActivity.receiveMessage(message);
         }
     }
 }
