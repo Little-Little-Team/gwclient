@@ -1,6 +1,7 @@
 package edu.bistu.gwclient.fragment;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +29,7 @@ public class GameResultDialogFragment extends DialogFragment
 
     public GameResultDialogFragment(GameActivity master, Long[] arr)
     {
+        Log.d(getClass().getName(), "game result array length: " + arr.length);
         this.master = master;
         adapter = new GameResultAdapter(arr);
     }
@@ -36,13 +38,14 @@ public class GameResultDialogFragment extends DialogFragment
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState)
     {
-        View view = LayoutInflater.from(container.getContext()).inflate(R.layout.dialog_game_result, container, false);
+        View view = LayoutInflater.from(master).inflate(R.layout.dialog_game_result, container, false);
 
         recyclerView_result = view.findViewById(R.id.recyclerView_result);
         button_confirm = view.findViewById(R.id.button_confirm);
 
         LinearLayoutManager manager = new LinearLayoutManager(this.getContext());
         manager.setOrientation(RecyclerView.VERTICAL);
+        recyclerView_result.setLayoutManager(manager);
         recyclerView_result.setAdapter(adapter);
 
         button_confirm.setOnClickListener(new View.OnClickListener()

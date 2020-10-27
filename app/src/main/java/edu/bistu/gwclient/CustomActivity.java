@@ -52,6 +52,8 @@ public abstract class CustomActivity extends AppCompatActivity
                 }
 
                 startActivity(intent);
+                if(CustomActivity.this instanceof InitialActivity)
+                    finish();
             }
         }
     }
@@ -86,5 +88,12 @@ public abstract class CustomActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         initialize();
+    }
+
+    @Override
+    protected void onResume()
+    {
+        super.onResume();
+        Memory.currentActivity = this;
     }
 }

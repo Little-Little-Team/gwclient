@@ -20,7 +20,7 @@ public class Status7 extends AbstractStatus
     public void initialize(Event triggeredEvent)
     {
         Message message = new Message();
-        message.what = 2;
+        message.what = 4;
         Memory.currentActivity.receiveMessage(message);
 
         Memory.networkService.sendMessage(ClientMessage.createRoomRequest());

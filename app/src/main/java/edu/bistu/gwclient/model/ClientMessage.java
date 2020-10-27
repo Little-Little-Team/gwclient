@@ -283,6 +283,7 @@ public class ClientMessage
         message.setServiceNumber(2);
         message.setMsgType(9);
         message.setN(1);
+        message.setDataType(1);
         message.setArrInt(new Integer[]{roomID});
         return message;
     }
@@ -295,6 +296,7 @@ public class ClientMessage
         message.setServiceNumber(2);
         message.setMsgType(8);
         message.setN(1);
+        message.setDataType(1);
         message.setArrInt(new Integer[]{roomID});
         return message;
     }
@@ -307,6 +309,7 @@ public class ClientMessage
         message.setServiceNumber(2);
         message.setMsgType(10);
         message.setN(1);
+        message.setDataType(1);
         message.setArrInt(new Integer[]{roomID});
         return message;
     }
@@ -332,6 +335,17 @@ public class ClientMessage
         message.setN(1);
         message.setDataType(3);
         message.setArrString(new String[]{str});
+        return message;
+    }
+
+    public static ClientMessage logout()
+    {
+        ClientMessage message = new ClientMessage();
+        message.setId(Memory.id);
+        message.setTime(System.currentTimeMillis());
+        message.setServiceNumber(1);
+        message.setMsgType(2);
+        message.setN(0);
         return message;
     }
 }

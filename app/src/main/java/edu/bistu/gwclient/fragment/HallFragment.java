@@ -53,7 +53,7 @@ public class HallFragment extends Fragment
             @Override
             public void onClick(View view)
             {
-
+                master.onCreateRoomClicked();
             }
         });
 

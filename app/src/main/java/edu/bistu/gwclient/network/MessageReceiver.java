@@ -54,6 +54,9 @@ public class MessageReceiver implements Runnable
                             int length = socketChannel.read(byteBuffer);
                             Log.d(getClass().getName(), "read message length: " + length);
 
+                            if(length == -1)
+                                selectionKey.cancel();
+
                             if(length > 0)
                                 getMessageFromBuffer(byteBuffer);
                         }
@@ -96,6 +99,8 @@ public class MessageReceiver implements Runnable
             Log.e(getClass().getName(), "messageToEvent(): message is null");
             return;
         }
+
+        //Log.d(getClass().getName(), "message delay: " + (System.currentTimeMillis() - message.getTime()) + "ms");
 
         int type = message.getMsgType();
         if(type == 1)

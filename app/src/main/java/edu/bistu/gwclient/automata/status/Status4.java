@@ -16,6 +16,7 @@ public class Status4 extends AbstractStatus
         super(statusNumber);
         supportedNextStatus.put(4, 5);
         supportedNextStatus.put(7, 7);
+        supportedNextStatus.put(25, 1);
     }
 
     @Override

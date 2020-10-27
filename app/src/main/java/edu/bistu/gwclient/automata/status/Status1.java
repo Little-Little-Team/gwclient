@@ -51,5 +51,26 @@ public class Status1 extends AbstractStatus
 
             Memory.currentActivity.receiveMessage(message);
         }
+        else if(triggeredEvent != null && triggeredEvent.getEventNumber() == 25)
+        {
+            Message message = new Message();
+            message.what = 9;
+            Memory.currentActivity.receiveMessage(message);
+
+            Memory.networkService.sendMessage(ClientMessage.logout());
+
+            /* 关闭网络服务 */
+            Memory.networkService.sendMessage(ClientMessage.networkServiceShutdownSignal());
+            try
+            {
+                Memory.networkServiceThread.join();
+            }
+            catch (InterruptedException e)
+            {
+                e.printStackTrace();
+            }
+
+            Memory.id = null;
+        }
     }
 }

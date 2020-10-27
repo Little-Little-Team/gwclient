@@ -40,6 +40,7 @@ public class RoomFragment extends Fragment
         super();
         this.master = master;
         this.roomID = roomID;
+        adapter = new PlayerAdapter(master);
     }
 
     @Nullable
@@ -85,8 +86,7 @@ public class RoomFragment extends Fragment
             }
         });
 
-        adapter = new PlayerAdapter(master);
-        recyclerView_playerList.setLayoutManager(new GridLayoutManager(this.getContext(), 2));
+        recyclerView_playerList.setLayoutManager(new GridLayoutManager(this.getContext(), 4));
         recyclerView_playerList.setAdapter(adapter);
 
         return view;

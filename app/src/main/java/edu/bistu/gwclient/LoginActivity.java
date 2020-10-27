@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Message;
 import android.util.Log;
 import android.widget.Toast;
@@ -103,6 +105,36 @@ public class LoginActivity extends CustomActivity
         if(progressDialog != null && progressDialog.isShowing())
             progressDialog.dismiss();
         super.onDestroy();
+    }
+
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setMessage("确定要退出游戏吗？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        Memory.automata.receiveEvent(
+                                new Event(Integer.MIN_VALUE, null, System.currentTimeMillis()));
+                        finish();
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .setTitle("退出程序？")
+                .create();
+
+        alertDialog.show();
+    }
+
+    @Override
+    protected void onStop()
+    {
+        if(progressDialog != null && progressDialog.isShowing())
+            progressDialog.dismiss();
+        super.onStop();
     }
 
     public void onLoginButtonClicked(String username, String pw)

@@ -1,5 +1,6 @@
 package edu.bistu.gwclient.adapter;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +38,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
             textView_isReady = itemView.findViewById(R.id.textView_isReady);
             imageView_avatar = itemView.findViewById(R.id.imageView_avatar);
-            textView_username = itemView.findViewById(R.id.textView_username);
+            textView_username = itemView.findViewById(R.id.textView_item_result_username);
         }
     }
 
@@ -53,6 +54,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         Long[] arr = players[position];
+        Log.d(getClass().getName(), "bind view holder: " + arr[0] + ",  " + arr[1]);
         if(arr[0] == null)
         {
             holder.textView_isReady.setText("");
@@ -65,6 +67,8 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
                 holder.textView_isReady.setText("已准备");
             else
                 holder.textView_isReady.setText("未准备");
+
+            holder.imageView_avatar.setImageResource(R.drawable.boy_icon);
 
             master.setUserPropertyInBackground(arr[0], holder.textView_username, holder.imageView_avatar);
         }

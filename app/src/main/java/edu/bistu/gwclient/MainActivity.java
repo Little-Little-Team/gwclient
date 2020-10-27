@@ -1,7 +1,9 @@
 package edu.bistu.gwclient;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.graphics.BitmapFactory;
 import android.os.Message;
 import android.util.Log;
@@ -76,7 +78,10 @@ public class MainActivity extends CustomActivity
                         return;
                     }
                     if(user.getUsername() != null)
+                    {
+                        Log.d(getClass().getName(), "textView.setText(): old one: " + textView.getText().toString() + ", new one: " + user.getUsername());
                         textView.setText(user.getUsername());
+                    }
                     if(user.getAvatar() != null)
                         imageView.setImageBitmap(
                                 BitmapFactory.decodeByteArray(user.getAvatar(), 0, user.getAvatar().length));
@@ -105,10 +110,7 @@ public class MainActivity extends CustomActivity
                 /* 加入房间 */
                 closeProgressDialog();
                 unlockUI();
-                if(msg.obj instanceof Long)
-                    toRoom(msg.arg1);
-                else
-                    Log.e(getClass().getName(), "room number transfer failed");
+                toRoom(msg.arg1);
             }
             else if(what == 7)
             {
@@ -122,6 +124,10 @@ public class MainActivity extends CustomActivity
             {
                 /* 返回大厅 */
                 toHall();
+            }
+            else if(what == 9)
+            {
+                finish();
             }
         }
     }
@@ -180,6 +186,27 @@ public class MainActivity extends CustomActivity
         super.onDestroy();
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        AlertDialog alertDialog = new AlertDialog.Builder(this)
+                .setMessage("确定要登出吗？")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i)
+                    {
+                        Memory.automata.receiveEvent(
+                                new Event(25, null, System.currentTimeMillis()));
+                    }
+                })
+                .setNegativeButton("取消", null)
+                .setTitle("登出")
+                .create();
+
+        alertDialog.show();
+    }
+
     private void showProgressDialog(String msg)
     {
         if(progressDialog == null)
@@ -214,6 +241,7 @@ public class MainActivity extends CustomActivity
 
     private void toRoom(Integer roomID)
     {
+        Log.d(getClass().getName(), "toRoom(): room id is" + roomID);
         if(roomFragment == null)
             roomFragment = new RoomFragment(this, roomID);
         roomFragment.setRoomID(roomID);
@@ -253,7 +281,7 @@ public class MainActivity extends CustomActivity
             return;
         }
 
-        UserPropertySetter setter = new UserPropertySetter(id, textView_username, imageView_avatar);
+        UserPropertySetter setter = new UserPropertySetter(id, textView, imageView);
         threadPool.execute(setter);
     }
 

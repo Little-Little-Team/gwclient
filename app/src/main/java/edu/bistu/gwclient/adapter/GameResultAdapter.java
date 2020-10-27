@@ -1,6 +1,7 @@
 package edu.bistu.gwclient.adapter;
 
 import android.annotation.SuppressLint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import edu.bistu.gwclient.GameActivity;
 import edu.bistu.gwclient.Memory;
 import edu.bistu.gwclient.R;
 
@@ -35,7 +35,7 @@ public class GameResultAdapter extends RecyclerView.Adapter<GameResultAdapter.Vi
         public ViewHodler(@NonNull View itemView)
         {
             super(itemView);
-            textView_username = itemView.findViewById(R.id.textView_username);
+            textView_username = itemView.findViewById(R.id.textView_item_result_username);
             textView_score = itemView.findViewById(R.id.textView_score);
         }
     }
@@ -52,6 +52,7 @@ public class GameResultAdapter extends RecyclerView.Adapter<GameResultAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHodler holder, int position)
     {
+        Log.d(getClass().getName(), "bind view, position: " + position);
         if(Memory.userCache.containsKey(results[position][0]))
             holder.textView_username.setText(Memory.userCache.get(results[position][0]).getUsername());
         else

@@ -32,9 +32,8 @@ public class Status8 extends AbstractStatus
                 message.arg1 = (Integer) triggeredEvent.getAttachment();
             else
                 Log.e(getClass().getName(), "room id transfer failed");
-            Memory.currentActivity.receiveMessage(message);
 
-            Memory.networkService.sendMessage(ClientMessage.roomInfoRequest(message.arg1));
+            Memory.currentActivity.receiveMessage(message);
         }
         else if(triggeredEvent.getEventNumber() == 15)
         {

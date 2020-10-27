@@ -49,6 +49,7 @@ public class Status10 extends AbstractStatus
                 Message message = new Message();
                 message.what = 1;
                 message.obj = triggeredEvent.getAttachment();
+                Memory.currentActivity.receiveMessage(message);
             }
             else
                 Log.e(getClass().getName(), "event number 21: long[] transfer failed");
@@ -60,6 +61,7 @@ public class Status10 extends AbstractStatus
                 Message message = new Message();
                 message.what = 2;
                 message.obj = triggeredEvent.getAttachment();
+                Memory.currentActivity.receiveMessage(message);
             }
             else
                 Log.e(getClass().getName(), "event number 22: string[] transfer failed");

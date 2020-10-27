@@ -88,7 +88,7 @@ public class RegisterFragment extends Fragment
 
                         RequestBody requestBody = new FormBody.Builder()
                                 .add("username", username)
-                                .add(password, password)
+                                .add("password", password)
                                 .build();
 
                         Request request = new Request.Builder()

@@ -30,6 +30,8 @@ public class UserPropertySetter implements Runnable
     @Override
     public void run()
     {
+        Log.d(getClass().getName(), "textView.getText(): " + textView_username.getText().toString());
+
         User user = Memory.userCache.get(id);
         if(user != null)
         {

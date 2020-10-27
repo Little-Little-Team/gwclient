@@ -49,6 +49,8 @@ public class GameActivity extends CustomActivity
 
     private Integer gameID;
 
+    private boolean isDialogShowing;
+
     private boolean uilock;
 
     private class Handler extends CustomActivity.Handler
@@ -82,16 +84,26 @@ public class GameActivity extends CustomActivity
             else if(what == 3)
             {
                 /* 显示结果 */
+                updater.shutdown();
+                mediaPlayer.reset();
                 if(msg.obj instanceof Long[])
                 {
                     dialogFragment = new GameResultDialogFragment(GameActivity.this, (Long[]) msg.obj);
                     dialogFragment.show(getSupportFragmentManager(), "GameResult");
+                    isDialogShowing = true;
                 }
                 else
                     Log.e(getClass().getName(), "game result transfer failed");
             }
             else if(what == 4)
+            {
+                mediaPlayer.release();
+                if(dialogFragment != null && isDialogShowing)
+                    dialogFragment.dismiss();
+
                 finish();
+            }
+
         }
     }
 
@@ -122,6 +134,11 @@ public class GameActivity extends CustomActivity
                 }
             }
             Log.d(getClass().getName(), "updater end");
+        }
+
+        void shutdown()
+        {
+            keepRunning = false;
         }
     }
 
@@ -206,16 +223,6 @@ public class GameActivity extends CustomActivity
         }
 
         super.onResume();
-    }
-
-    @Override
-    protected void onDestroy()
-    {
-        mediaPlayer.stop();
-        mediaPlayer.release();
-        if(dialogFragment != null)
-            dialogFragment.dismiss();
-        super.onDestroy();
     }
 
     private void updateChat(String str)
