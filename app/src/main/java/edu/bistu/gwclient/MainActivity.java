@@ -41,6 +41,8 @@ public class MainActivity extends CustomActivity
 
     private ProgressDialog progressDialog;
 
+    private boolean isInRoom;
+
     private boolean uilock;
 
     @SuppressLint("HandlerLeak")
@@ -189,6 +191,12 @@ public class MainActivity extends CustomActivity
     @Override
     public void onBackPressed()
     {
+        if(isInRoom)
+        {
+            Toast.makeText(this, "请先离开房间", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         AlertDialog alertDialog = new AlertDialog.Builder(this)
                 .setMessage("确定要登出吗？")
                 .setPositiveButton("确定", new DialogInterface.OnClickListener()
@@ -227,6 +235,7 @@ public class MainActivity extends CustomActivity
 
     private void toHall()
     {
+        isInRoom = false;
         if(hallFragment == null)
             hallFragment = new HallFragment(this);
         replaceFragment(hallFragment);
@@ -242,6 +251,7 @@ public class MainActivity extends CustomActivity
     private void toRoom(Integer roomID)
     {
         Log.d(getClass().getName(), "toRoom(): room id is" + roomID);
+        isInRoom = true;
         if(roomFragment == null)
             roomFragment = new RoomFragment(this, roomID);
         roomFragment.setRoomID(roomID);

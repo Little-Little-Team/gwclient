@@ -10,6 +10,9 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import edu.bistu.gwclient.MainActivity;
 import edu.bistu.gwclient.Memory;
 import edu.bistu.gwclient.R;
@@ -20,10 +23,16 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     private MainActivity master;
 
+    private Set<Long> set;
+
+    private int count;
+
     public PlayerAdapter(MainActivity master)
     {
         players = new Long[Memory.maxRoomSize][2];
         this.master = master;
+        set = new HashSet<>();
+        count = 0;
     }
 
     class ViewHolder extends RecyclerView.ViewHolder
@@ -54,7 +63,7 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public void onBindViewHolder(@NonNull ViewHolder holder, int position)
     {
         Long[] arr = players[position];
-        Log.d(getClass().getName(), "bind view holder: " + arr[0] + ",  " + arr[1]);
+        Log.d(getClass().getName(), "position " + position + " bind view holder: " + arr[0] + ",  " + arr[1]);
         if(arr[0] == null)
         {
             holder.textView_isReady.setText("");
@@ -82,12 +91,25 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
 
     public void updateData(Long[] arr)
     {
+        count = arr.length / 2;
+        Log.d(getClass().getName(), "count = " + count);
         for(int i = 0; i < players.length; i++)
         {
             if(i * 2 + 1 < arr.length)
             {
                 players[i][0] = arr[i * 2];
                 players[i][1] = arr[i * 2 + 1];
+
+                if(players[i][1] == 1)
+                {
+                    Log.d(getClass().getName(), "set.add()");
+                    set.add(players[i][0]);
+                }
+                else
+                {
+                    Log.d(getClass().getName(), "set.remove()");
+                    set.remove(players[i][0]);
+                }
             }
             else
             {
@@ -100,5 +122,14 @@ public class PlayerAdapter extends RecyclerView.Adapter<PlayerAdapter.ViewHolder
     public boolean isRoomOwner()
     {
         return players[0][0] != null && players[0][0].equals(Memory.id);
+    }
+
+    public boolean canStartGame()
+    {
+        Log.d(getClass().getName(), "set.size(): " + set.size());
+        if(set.size() == count)
+            return true;
+        else
+            return false;
     }
 }

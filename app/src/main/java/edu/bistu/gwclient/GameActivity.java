@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.media.AudioAttributes;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Message;
@@ -17,6 +18,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.io.IOException;
 
@@ -225,6 +227,12 @@ public class GameActivity extends CustomActivity
         super.onResume();
     }
 
+    @Override
+    public void onBackPressed()
+    {
+        //do nothing
+    }
+
     private void updateChat(String str)
     {
         adapter.addChat(str);
@@ -241,6 +249,10 @@ public class GameActivity extends CustomActivity
         {
             mediaPlayer.setDataSource(
                     "http://" + Memory.serverIP + ":" + Memory.serverApiPort + "/get_music?id=" + arr[0]);
+            mediaPlayer.setAudioAttributes(
+                    new AudioAttributes.Builder()
+                            .setLegacyStreamType(AudioManager.STREAM_MUSIC)
+                            .build());
             mediaPlayer.setOnPreparedListener(new MediaPlayer.OnPreparedListener()
             {
                 @Override
@@ -249,6 +261,16 @@ public class GameActivity extends CustomActivity
                     mediaPlayer.start();
                     progressBar.setMax(arr[3].intValue() * 1000);
                     Log.d(getClass().getName(), "music duration: " + mediaPlayer.getDuration());
+                }
+            });
+            mediaPlayer.setOnErrorListener(new MediaPlayer.OnErrorListener()
+            {
+                @Override
+                public boolean onError(MediaPlayer mediaPlayer, int i, int i1)
+                {
+                    Toast.makeText(GameActivity.this, "播放错误：" + i, Toast.LENGTH_SHORT).show();
+                    playMusic(arr);
+                    return true;
                 }
             });
             mediaPlayer.prepareAsync();

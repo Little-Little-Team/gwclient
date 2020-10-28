@@ -2,6 +2,7 @@ package edu.bistu.gwclient.fragment;
 
 import android.os.Bundle;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,18 +60,24 @@ public class RegisterFragment extends Fragment
                 if(editText_username.getText() == null || editText_pw.getText() == null || editText_pw2.getText() == null)
                 {
                     textView_hint.setText("信息不全");
+                    textView_hint.setVisibility(View.VISIBLE);
                     return;
                 }
 
                 if(editText_username.getText().toString().length() == 0|| editText_pw.getText().toString().length() == 0 || editText_pw2.getText().toString().length() == 0)
                 {
                     textView_hint.setText("信息不全");
+                    textView_hint.setVisibility(View.VISIBLE);
                     return;
                 }
 
-                if(editText_pw.getText().toString().compareTo(editText_pw2.getText().toString()) != 0)
+                int compareResult = editText_pw.getText().toString().compareTo(editText_pw2.getText().toString());
+                Log.d(getClass().getName(), "two pw compare result: " + compareResult);
+
+                if(compareResult != 0)
                 {
                     textView_hint.setText("两次密码输入不一致");
+                    textView_hint.setVisibility(View.VISIBLE);
                     return;
                 }
 
@@ -124,6 +131,17 @@ public class RegisterFragment extends Fragment
         });
 
         return view;
+    }
+
+    @Override
+    public void onResume()
+    {
+        textView_hint.setVisibility(View.INVISIBLE);
+
+        editText_username.setText("");
+        editText_pw.setText("");
+        editText_pw2.setText("");
+        super.onResume();
     }
 
     public void setHintContent(String content)

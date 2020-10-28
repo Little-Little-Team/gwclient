@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="5dp"
         android:layout_weight="1"
-        android:textSize="24sp"
+        android:textSize="14sp"
         tools:text="陶宇阳" />
 
     <TextView
@@ -23,7 +23,7 @@
         android:layout_weight="1"
         android:text="——"
         android:textAlignment="center"
-        android:textSize="24sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/textView_score"
@@ -32,6 +32,6 @@
         android:layout_marginStart="5dp"
         android:layout_weight="1"
         android:textAlignment="textEnd"
-        android:textSize="24sp"
+        android:textSize="14sp"
         tools:text="1024" />
 </LinearLayout>

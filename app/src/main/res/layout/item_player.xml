@@ -1,17 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/l"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginStart="5dp"
-    android:layout_marginEnd="5dp"
+    android:layout_gravity="center_horizontal"
+    android:layout_marginStart="20dp"
+    android:layout_marginEnd="20dp"
+    android:layout_weight="1"
     android:orientation="vertical">
 
     <TextView
         android:id="@+id/textView_isReady"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="未准备"
+        android:layout_gravity="center"
+        android:textAlignment="center"
         android:textSize="14sp" />
 
     <ImageView
@@ -19,12 +24,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        app:srcCompat="@drawable/boy_icon" />
+        app:srcCompat="@drawable/add" />
 
     <TextView
         android:id="@+id/textView_item_result_username"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="用户名"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
         android:textSize="14sp" />
 </LinearLayout>

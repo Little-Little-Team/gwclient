@@ -145,18 +145,20 @@ public class LoginActivity extends CustomActivity
             return;
         }
 
+        lockUI();
         if(username == null || username.length() == 0 || pw == null || pw.length() == 0)
         {
             loginFragment.setHintContent("用户名或密码为空");
+            unlockUI();
             return;
         }
 
         Log.d(getClass().getName(), "loginButtonClicked(" + username + ", " + pw + ")");
         showProgressDialog("正在连接服务器");
+        unlockUI();
         inputUserName = username;
         inputPw = pw;
         Memory.automata.receiveEvent(new Event(1, null, System.currentTimeMillis()));
-        lockUI();
     }
 
     public void toRegister()

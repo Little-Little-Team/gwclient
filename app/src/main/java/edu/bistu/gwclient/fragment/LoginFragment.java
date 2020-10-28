@@ -59,6 +59,10 @@ public class LoginFragment extends Fragment
                 master.toRegister();
             }
         });
+
+        editText_pw.setText("");
+        textView_hint.setText("");
+        textView_hint.setVisibility(View.INVISIBLE);
         return view;
     }
 
