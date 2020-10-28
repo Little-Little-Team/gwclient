@@ -69,6 +69,11 @@ public class LoginActivity extends CustomActivity
                     str = "非法参数";
                 registerFragment.setHintContent(str);
             }
+            else if(what == 5)
+            {
+                closeProgressDialog();
+                loginFragment.setHintContent("与服务器连接失败");
+            }
         }
     }
 

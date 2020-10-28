@@ -72,5 +72,11 @@ public class Status1 extends AbstractStatus
 
             Memory.id = null;
         }
+        else if(triggeredEvent != null && triggeredEvent.getEventNumber() == 26)
+        {
+            Message message = new Message();
+            message.what = 5;
+            Memory.currentActivity.receiveMessage(message);
+        }
     }
 }

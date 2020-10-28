@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:fontFamily="casual"
-        android:text="Guess What?"
+        android:text="GuessWhat?"
         android:textColor="#F44336"
         android:textSize="36sp" />
 

@@ -2,6 +2,7 @@ package edu.bistu.gwclient.network;
 
 import android.util.Log;
 
+import java.io.IOException;
 import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
@@ -27,8 +28,37 @@ public class NetworkService implements Runnable
 
         try
         {
-            SocketChannel socketChannel = SocketChannel.open();
+            final SocketChannel socketChannel = SocketChannel.open();
+            new Thread(new Runnable()
+            {
+                @Override
+                public void run()
+                {
+                    try
+                    {
+                        Thread.sleep(3000);
+                    }
+                    catch (InterruptedException e)
+                    {
+                        e.printStackTrace();
+                    }
+                    if(!socketChannel.isConnected())
+                    {
+                        Memory.automata.receiveEvent(new Event(26, null, System.currentTimeMillis()));
+                        try
+                        {
+                            socketChannel.close();
+                        }
+                        catch (IOException e)
+                        {
+                            e.printStackTrace();
+                        }
+                        Log.e(getClass().getName(), "network service start failed");
+                    }
+                }
+            }).start();
             socketChannel.connect(new InetSocketAddress(Memory.serverIP, Memory.serverSocketPort));
+
             socketChannel.configureBlocking(false);
 
             messageReceiver = new MessageReceiver(socketChannel);
